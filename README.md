@@ -1,7 +1,7 @@
 # Proxy
 Proxy server which used to proxy request http request to another server.
 
-Usage:
+# Usage:
 npm install -g babel 
 npm install 
 npm start
@@ -24,3 +24,6 @@ npm start --- --port 8080
 ex: 
 npm start --- --log logfile.txt
 
+
+# Usage GIF
+![Alt text](/image/proxy_usage.gif?raw=true "Check Usage section")
