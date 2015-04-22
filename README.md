@@ -8,19 +8,19 @@ npm start
 
 Arguments:
 
-url 
+--url 
 ex: 
 npm start --- --url http://127.0.0.1:80/
 
-host
+--host
 ex: 
 npm start --- --host 127.0.0.1
 
-port
+--port
 ex: 
 npm start --- --port 8080
 
-log
+--log
 ex: 
 npm start --- --log logfile.txt
 
