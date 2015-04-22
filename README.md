@@ -1,5 +1,5 @@
 # Proxy
-Proxy server which used to http forward  request to another server based on configration.
+Proxy server which used to forward http request to another server based on configration.
 
 # Usage:
 npm install -g babel 
