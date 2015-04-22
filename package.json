@@ -1,0 +1,24 @@
+{
+  "name": "proxy",
+  "version": "1.0.0",
+  "description": "Proxy server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node -- index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alimousazy/Proxy.git"
+  },
+  "author": "Ali Alrahahleh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alimousazy/Proxy/issues"
+  },
+  "homepage": "https://github.com/alimousazy/Proxy",
+  "dependencies": {
+    "request": "^2.55.0",
+    "yargs": "^3.7.2"
+  }
+}
