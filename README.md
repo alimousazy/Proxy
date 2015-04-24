@@ -1,29 +1,119 @@
-# Proxy
-Proxy server which used to forward http request to another server based on configration.
+# Proxy Server
 
-# Usage:
-npm install -g babel 
-npm install 
+This is a Proxy Server for Node.js submitted as the [pre-work](http://courses.codepath.com/snippets/intro_to_nodejs/prework) requirement for CodePath.
+
+Time spent: 3
+
+Completed:
+
+* [] Required: Requests to port `8000` are echoed back with the same HTTP headers and body
+* [] Required: Requests/reponses are proxied to/from the destination server
+* [] Required: The destination server is configurable via the `--host`, `--port`  or `--url` arguments
+* [] Required: The destination server is configurable via the `x-destination-url` header
+* [] Required: Client requests and respones are printed to stdout
+* [] Required: The `--logfile` argument outputs all logs to the file specified instead of stdout
+* [] Optional: The `--exec` argument proxies stdin/stdout to/from the destination program
+* [] Optional: The `--loglevel` argument sets the logging chattiness
+* [] Optional: Supports HTTPS
+* [] Optional: `-h` argument prints CLI API
+
+-![Alt text](/image/proxy_usage.gif?raw=true "Check Usage section")
+
+## Starting the Server
+
+```bash
 npm start
+```
 
-Arguments:
+## Features
 
---url 
-ex: 
-npm start --- --url http://127.0.0.1:80/
+### Echo Server:
 
---host
-ex: 
-npm start --- --host 127.0.0.1
+```bash
+curl -v -X POST http://127.0.0.1:8000 -d "hello self" -H "x-asdf: yodawg"
+* Rebuilt URL to: http://127.0.0.1:8000/
+* Hostname was NOT found in DNS cache
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 8000 (#0)
+> POST / HTTP/1.1
+> User-Agent: curl/7.37.1
+> Host: 127.0.0.1:8000
+> Accept: */*
+> x-asdf: yodawg
+> Content-Length: 10
+> Content-Type: application/x-www-form-urlencoded
+> 
+* upload completely sent off: 10 out of 10 bytes
+< HTTP/1.1 200 OK
+< user-agent: curl/7.37.1
+< host: 127.0.0.1:8000
+< accept: */*
+< x-asdf: yodawg
+< content-length: 10
+< content-type: application/x-www-form-urlencoded
+< Date: Mon, 13 Apr 2015 00:45:50 GMT
+< Connection: keep-alive
+< 
+* Connection #0 to host 127.0.0.1 left intact
+hello self
+```
 
---port
-ex: 
-npm start --- --port 8080
+### Proxy Server:
 
---log
-ex: 
-npm start --- --log logfile.txt
+Port 8001 will proxy to the echo server on port 8000.
 
+```bash
+curl -v http://127.0.0.1:8001/asdf -d "hello proxy"
+* Hostname was NOT found in DNS cache
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 8001 (#0)
+> POST /asdf HTTP/1.1
+> User-Agent: curl/7.37.1
+> Host: 127.0.0.1:8001
+> Accept: */*
+> Content-Length: 11
+> Content-Type: application/x-www-form-urlencoded
+> 
+* upload completely sent off: 11 out of 11 bytes
+< HTTP/1.1 200 OK
+< user-agent: curl/7.37.1
+< host: 127.0.0.1:8001
+< accept: */*
+< content-length: 11
+< content-type: application/x-www-form-urlencoded
+< connection: close
+< date: Mon, 13 Apr 2015 02:03:29 GMT
+< 
+* Closing connection 0
+hello proxy
+```
 
-# Usage GIF
-![Alt text](/image/proxy_usage.gif?raw=true "Check Usage section")
+### Configuration:
+
+#### CLI Arguments:
+
+The following CLI arguments are supported:
+
+##### `--host`
+
+The host of the destination server. Defaults to `127.0.0.1`.
+
+##### `--port`
+
+The port of the destination server. Defaults to `80` or `8000` when a host is not specified.
+
+##### `--url`
+
+A single url that overrides the above. E.g., `http://www.google.com`
+
+##### `--logfile`
+
+Specify a file path to redirect logging to.
+
+#### Headers
+
+The follow http header(s) are supported:
+
+##### `x-destination-url`
+
+Specify the destination url on a per request basis. Overrides and follows the same format as the `--url` argument.
