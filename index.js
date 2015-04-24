@@ -11,6 +11,7 @@ let outputStream = argv.log ? fs.createWriteStream(argv.log) : process.stdout
 
 
 http.createServer((req, res) => {
+    destinationUrl = req.headers['x-destination-url'] || destinationUrl;
     let options = {
         headers: req.headers,
         url: `${destinationUrl}${req.url}`
